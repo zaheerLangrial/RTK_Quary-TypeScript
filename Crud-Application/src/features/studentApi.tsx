@@ -2,7 +2,7 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
 
 
-type students = {
+export type students = {
     id : string;
     studentName : string;
     studentEmail : string;
@@ -19,6 +19,10 @@ export const studentApi = createApi({
             query : () => '/students',
             providesTags : ['Students']
         }),
+        getStudent : builder.query<students , string>({
+            query : (id) => `/students/${id}/`,
+            providesTags : ['Students']
+        }),
         addStudent : builder.mutation<void , students>({
             query : (student) => ({
                 url : '/students',
@@ -33,10 +37,18 @@ export const studentApi = createApi({
                 method : 'DELETE'
             }),
             invalidatesTags : ['Students']
-        })
+        }),
+        updateStudent : builder.mutation<void,students>({
+            query : (student) => ({
+                url : `/students/${student.id}`,
+                method : 'PUT',
+                body : student
+            }),
+            invalidatesTags : ['Students']
+        }),
     }),
 })
 
 
 
-export const { useGetStudentsQuery , useAddStudentMutation  , useDeleteStudentMutation} = studentApi
+export const { useGetStudentsQuery , useAddStudentMutation  , useDeleteStudentMutation , useGetStudentQuery , useUpdateStudentMutation} = studentApi

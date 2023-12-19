@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import { useDeleteStudentMutation, useGetStudentsQuery } from "../features/studentApi";
 
 function StudentsList() {
@@ -30,7 +31,7 @@ function StudentsList() {
                                     <td className="px-10">{student.studentEmail}</td>
                                     <td className="flex space-x-3">
                                         <button className="px-3 py-1 border" onClick={() =>deleteStudent(student.id)}>Delete</button>
-                                        <button className="px-3 py-1 border">Edit</button>
+                                        <Link to={`/creat/${student.id}`} className="px-3 py-1 border">Edit</Link>
                                     </td>
                                 </tr>
                             )
